@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+    .parent{
+      width:375px;
+      height:106px;
+      position :relative;
+      padding:24px 12px 18px 24px;
+      background: #eee;
+      font-size :0;
+    }
+    .support-count{
+      position: absolute;
+      height: 24px;
+      border-radius: 4px;
+      right: 0;
+      bottom: 0;
+    }
+  .support-count .count {
+      display: inline-block;
+      padding: 7px 8px;
+      font-size: 12px;
+      line-height: 12px;
+      font-weight: 200;
+    }
+
+    .box1{
+      width: 200px;
+      height: 200px;
+      position: fixed;
+      left:20px;
+      top:200px;
+      background: #f1f1f1;
+      z-index: 10;
+    }
+    .box2{
+      width: 100px;
+      height: 100px;
+      position: fixed;
+      left:0px;
+      top:0px;
+      background: red;
+    }
+  </style>
+</head>
+<body>
+<div class="parent">
+  <div class="support-count">
+    <span class="count">5个</span>
+  </div>
+</div>
+<div class="box1">
+  <div class="box2"></div>
+  <div class="box3">box3</div>
+</div>
+</body>
+</html>

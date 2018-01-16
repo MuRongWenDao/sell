@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>双向绑定实例</title>
+</head>
+<body>
+<div id="app">
+  <input type="text" v-model="text">
+  {{text}}
+</div>
+
+<script>
+
+  function nodeToFragment (node, vm) {
+    var flag = document.createDocumentFragment();
+    var child;
+    while(child = node.firstChild) {
+      compile(child, vm);
+      flag.appendChild(child);
+    }
+    return flag;
+  }
+
+
+  function compile (node,vm) {
+
+    var reg = /\{\{(.*)\}\}/;
+
+    // 节点类型为元素
+    if(node.nodeType === 1) {
+      var attr = node.attributes;
+      // 解析属性
+      for (var i = 0; i < attr.length; i++) {
+        var name = attr[i].nodeValue;
+        node.value = vm.data[name];
+        node.removeAttribute('v-model');
+      }
+    }
+    // 节点类型为text
+    if(node.nodeType === 3) {
+      if (reg.test(node.nodeValue)) {
+        var name = RegExp.$1;
+        name = name.trim();
+        node.nodeValue = vm.data[name];
+      }
+    }
+  }
+
+  function Vue (options) {
+    this.data = options.data;
+    var id = options.el;
+    console.log(document.getElementById(id).childNodes);
+    var dom = nodeToFragment(document.getElementById(id), this);
+    document.getElementById(id).appendChild(dom);  // 返回到app中
+  }
+
+  var vm = new Vue({
+    el:"app",
+    data: {
+      text: 'hello world'
+    }
+  })
+</script>
+</body>
+</html>
